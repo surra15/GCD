@@ -12,7 +12,8 @@
 ##      creates two data sets for training and test data
 ##      appends columns subject from sub_* and activity from y_* data
 ##      rbinds the data sets data_train and data_test into data
-##  
+##      Assign names to "data" from the features data frame
+##
 ##      Creates a set of columns with "mean, Mean or std" in the column names
 ##          as well as the appended columnns subject and activity
 ##          To keep the order of the columns it uses grep to get indices
@@ -40,6 +41,10 @@ data_train <- cbind(sub_train, data_train)
 data_test <- cbind(y_test, x_test)
 data_test <- cbind(sub_test, data_test)
 data <- rbind(data_train, data_test)
+
+NamesList <- as.character(features[,2])
+NamesList <- make.names(NamesList, unique=TRUE)
+colnames(data)<- c("subject","activity", NamesList)
 
 x_colnames <- as.character(features[,2])
 ## add two additional "mean" named columns so that indexes are right on grep
